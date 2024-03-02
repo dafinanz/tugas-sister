@@ -8,6 +8,7 @@ use App\Repositories\BaseRepository;
 class MataKuliahRepository extends BaseRepository
 {
     protected $fieldSearchable = [
+        'kode',
         'nama',
         'sks'
     ];

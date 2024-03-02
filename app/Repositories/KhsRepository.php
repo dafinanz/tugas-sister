@@ -8,6 +8,7 @@ use App\Repositories\BaseRepository;
 class KhsRepository extends BaseRepository
 {
     protected $fieldSearchable = [
+        'nim',
         'kode',
         'nilai'
     ];

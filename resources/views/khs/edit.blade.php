@@ -19,7 +19,7 @@
 
         <div class="card">
 
-            {!! Form::model($khs, ['route' => ['khs.update', $khs->nim,kode], 'method' => 'patch']) !!}
+            {!! Form::model($khs, ['url' => ['khs/update/'.$khs->nim.'/'.$khs->kode], 'method' => 'patch']) !!}
 
             <div class="card-body">
                 <div class="row">

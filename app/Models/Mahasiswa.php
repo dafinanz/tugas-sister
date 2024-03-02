@@ -9,6 +9,8 @@ class Mahasiswa extends Model
     public $table = 'mahasiswa';
 
     protected $primaryKey = 'nim';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     public $fillable = [
         'nim',
@@ -25,7 +27,7 @@ class Mahasiswa extends Model
     public static array $rules = [
         'nama' => 'required|string|max:255',
         'alamat' => 'required|string|max:255',
-        'created_at' => 'required',
+        'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];

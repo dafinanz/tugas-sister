@@ -9,6 +9,8 @@ class MataKuliah extends Model
     public $table = 'mata_kuliah';
 
     protected $primaryKey = 'kode';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     public $fillable = [
         'kode',

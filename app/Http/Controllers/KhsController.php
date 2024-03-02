@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateKhsRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\KhsRepository;
 use Illuminate\Http\Request;
+use App\Models\{Mahasiswa,MataKuliah,Khs};
 use Flash;
 
 class KhsController extends AppBaseController
@@ -35,7 +36,12 @@ class KhsController extends AppBaseController
      */
     public function create()
     {
-        return view('khs.create');
+        $mhs = Mahasiswa::get();
+        $matkul = MataKuliah::get();
+
+        return view('khs.create')-> 
+                with('mhs', $mhs)->
+                with('matkul', $matkul); 
     }
 
     /**
@@ -43,13 +49,19 @@ class KhsController extends AppBaseController
      */
     public function store(CreateKhsRequest $request)
     {
-        $input = $request->all();
+        try{
 
-        $khs = $this->khsRepository->create($input);
+            $input = $request->all();
 
-        Flash::success('Khs saved successfully.');
+            $khs = $this->khsRepository->create($input);
 
-        return redirect(route('khs.index'));
+            Flash::success('Khs saved successfully.');
+
+            return redirect(route('khs.index'));
+        }catch(\Exception $ex){
+            Flash::error("Gagal input KHS");
+            return redirect(route('khs.index'));
+        }
     }
 
     /**
@@ -71,9 +83,9 @@ class KhsController extends AppBaseController
     /**
      * Show the form for editing the specified Khs.
      */
-    public function edit($id)
-    {
-        $khs = $this->khsRepository->find($id);
+    public function edit($nim,$kode)
+    { 
+        $khs = Khs::where('nim',$nim)->where('kode',$kode)->first();
 
         if (empty($khs)) {
             Flash::error('Khs not found');
@@ -81,15 +93,21 @@ class KhsController extends AppBaseController
             return redirect(route('khs.index'));
         }
 
-        return view('khs.edit')->with('khs', $khs);
+        $mhs = Mahasiswa::get();
+        $matkul = MataKuliah::get();
+
+        return view('khs.edit')->
+                with('khs', $khs)->
+                with('mhs', $mhs)->
+                with('matkul', $matkul);
     }
 
     /**
      * Update the specified Khs in storage.
      */
-    public function update($id, UpdateKhsRequest $request)
+    public function update($nim,$kode, UpdateKhsRequest $request)
     {
-        $khs = $this->khsRepository->find($id);
+        $khs = Khs::where('nim',$nim)->where('kode',$kode)->first();
 
         if (empty($khs)) {
             Flash::error('Khs not found');
@@ -97,7 +115,12 @@ class KhsController extends AppBaseController
             return redirect(route('khs.index'));
         }
 
-        $khs = $this->khsRepository->update($request->all(), $id);
+        $khs = Khs::where('nim',$nim)->where('kode',$kode)->
+            update(
+              [
+                'nilai' => $request->nilai
+              ]
+            );
 
         Flash::success('Khs updated successfully.');
 
@@ -109,9 +132,9 @@ class KhsController extends AppBaseController
      *
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy($nim,$kode)
     {
-        $khs = $this->khsRepository->find($id);
+        $khs = Khs::where('nim',$nim)->where('kode',$kode)->first();
 
         if (empty($khs)) {
             Flash::error('Khs not found');

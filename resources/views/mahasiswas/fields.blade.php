@@ -1,5 +1,10 @@
 <!-- Nama Field -->
 <div class="form-group col-sm-6">
+    {!! Form::label('nim', 'NIM:') !!}
+    {!! Form::text('nim', null, ['class' => 'form-control', 'required', 'maxlength' => 255, 'maxlength' => 255, 'maxlength' => 255]) !!}
+</div>
+
+<div class="form-group col-sm-6">
     {!! Form::label('nama', 'Nama:') !!}
     {!! Form::text('nama', null, ['class' => 'form-control', 'required', 'maxlength' => 255, 'maxlength' => 255, 'maxlength' => 255]) !!}
 </div>

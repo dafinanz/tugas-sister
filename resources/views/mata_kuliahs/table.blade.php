@@ -3,6 +3,7 @@
         <table class="table" id="mata-kuliahs-table">
             <thead>
             <tr>
+                <th>Kode</th>
                 <th>Nama</th>
                 <th>Sks</th>
                 <th colspan="3">Action</th>
@@ -11,15 +12,12 @@
             <tbody>
             @foreach($mataKuliahs as $mataKuliah)
                 <tr>
+                    <td>{{ $mataKuliah->kode }}</td>
                     <td>{{ $mataKuliah->nama }}</td>
                     <td>{{ $mataKuliah->sks }}</td>
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['mataKuliahs.destroy', $mataKuliah->kode], 'method' => 'delete']) !!}
-                        <div class='btn-group'>
-                            <a href="{{ route('mataKuliahs.show', [$mataKuliah->kode]) }}"
-                               class='btn btn-default btn-xs'>
-                                <i class="far fa-eye"></i>
-                            </a>
+                        <div class='btn-group'> 
                             <a href="{{ route('mataKuliahs.edit', [$mataKuliah->kode]) }}"
                                class='btn btn-default btn-xs'>
                                 <i class="far fa-edit"></i>

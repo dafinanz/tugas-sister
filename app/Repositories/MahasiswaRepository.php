@@ -8,6 +8,7 @@ use App\Repositories\BaseRepository;
 class MahasiswaRepository extends BaseRepository
 {
     protected $fieldSearchable = [
+        'nim',
         'nama',
         'alamat'
     ];
@@ -20,5 +21,5 @@ class MahasiswaRepository extends BaseRepository
     public function model(): string
     {
         return Mahasiswa::class;
-    }
+    } 
 }

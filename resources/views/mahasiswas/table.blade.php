@@ -3,6 +3,7 @@
         <table class="table" id="mahasiswas-table">
             <thead>
             <tr>
+                <th>NIM</th>
                 <th>Nama</th>
                 <th>Alamat</th>
                 <th colspan="3">Action</th>
@@ -11,16 +12,13 @@
             <tbody>
             @foreach($mahasiswas as $mahasiswa)
                 <tr>
+                    <td>{{ $mahasiswa->nim }}</td>
                     <td>{{ $mahasiswa->nama }}</td>
                     <td>{{ $mahasiswa->alamat }}</td>
                     <td  style="width: 120px">
-                        {!! Form::open(['route' => ['mahasiswas.destroy', $mahasiswa->id], 'method' => 'delete']) !!}
-                        <div class='btn-group'>
-                            <a href="{{ route('mahasiswas.show', [$mahasiswa->id]) }}"
-                               class='btn btn-default btn-xs'>
-                                <i class="far fa-eye"></i>
-                            </a>
-                            <a href="{{ route('mahasiswas.edit', [$mahasiswa->id]) }}"
+                        {!! Form::open(['route' => ['mahasiswas.destroy', $mahasiswa->nim], 'method' => 'delete']) !!}
+                        <div class='btn-group'> 
+                            <a href="{{ route('mahasiswas.edit', [$mahasiswa->nim]) }}"
                                class='btn btn-default btn-xs'>
                                 <i class="far fa-edit"></i>
                             </a>

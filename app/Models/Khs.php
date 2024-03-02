@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Khs extends Model
 {
     public $table = 'khs';
 
-    protected $primaryKey = 'nim,kode';
+    protected $primaryKey = ['nim','kode'];
+    public $incrementing = false;
 
     public $fillable = [
         'nim',
@@ -24,17 +26,18 @@ class Khs extends Model
     public static array $rules = [
         'kode' => 'required|string|max:20',
         'nilai' => 'required',
-        'created_at' => 'required',
+        'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];
 
-    public function nim(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+
+    public function nimMHS(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\Mahasiswa::class, 'nim');
     }
 
-    public function kode(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function kodeMHS(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\MataKuliah::class, 'kode');
     }

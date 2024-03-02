@@ -2,25 +2,23 @@
     <div class="table-responsive">
         <table class="table" id="khs-table">
             <thead>
-            <tr>
-                <th>Kode</th>
+            <tr> 
+                <th>Nama</th> 
+                <th>Matkul</th>
                 <th>Nilai</th>
                 <th colspan="3">Action</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($khs as $khs)
+            @foreach($khs as $khss)
                 <tr>
-                    <td>{{ $khs->kode }}</td>
-                    <td>{{ $khs->nilai }}</td>
+                    <td>[{{ $khss->nim }}] {{ $khss->nimMHS->nama }}</td> 
+                    <td>[{{ $khss->kode }}] {{ $khss->kodeMHS->nama }}</td> 
+                    <td>{{ $khss->nilai }}</td>
                     <td  style="width: 120px">
-                        {!! Form::open(['route' => ['khs.destroy', $khs->nim,kode], 'method' => 'delete']) !!}
-                        <div class='btn-group'>
-                            <a href="{{ route('khs.show', [$khs->nim,kode]) }}"
-                               class='btn btn-default btn-xs'>
-                                <i class="far fa-eye"></i>
-                            </a>
-                            <a href="{{ route('khs.edit', [$khs->nim,kode]) }}"
+                        {!! Form::open(['url' => ['khs/hapus/'.$khss->nim.'/'.$khss->kode], 'method' => 'delete']) !!}
+                        <div class='btn-group'> 
+                            <a href="{{ url('khs/ubah/'.$khss->nim.'/'.$khss->kode) }}"
                                class='btn btn-default btn-xs'>
                                 <i class="far fa-edit"></i>
                             </a>
